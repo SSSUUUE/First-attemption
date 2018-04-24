@@ -1,19 +1,18 @@
-#------------------------------------------与初始数据的区别---------------------
-#1.没有将缺失值标记为-1,而是将他们也化作为一类
-#2.增加了对时间的特征,将时间划分成午夜0-6，早上7-12，下午13-18，晚上19-24，在feature段提取购买率，频数；在label段提取是否为午夜
-#3.删掉部分特征
-#4.将which.max(table())全部转换成median
+#1.读取数据,由于a,b榜给的预测数据都是同一天的，所以需要先将两个数据合并
+#2.数据的预处理：根据时间提取出所在日期，小时，时刻，时间段等；将-1统一标记成了NA
+#3.根据划窗法划分训练集和测试集
+#4.特征的提取，分为User_id,item_id,shop_id…………………………
 
 #划分feature集和label集
-almm_train<-read.table("F:/SUE/天池/round1_ijcai_18_train_20180301.txt",header=T,stringsAsFactors = T,
+almm_train<-read.table("round1_ijcai_18_train_20180301.txt",header=T,stringsAsFactors = T,
                        colClasses=c(rep("character",6),rep("numeric",4),"character","numeric",
                                     rep("numeric",3),"character",rep("numeric",2),rep("character",2),
                                     rep("numeric",7)))
-almm_test_part2<-read.table("F:/SUE/天池/almm_test_0418.txt",header=T,stringsAsFactors = T,
+almm_test_part2<-read.table("almm_test_0418.txt",header=T,stringsAsFactors = T,
                             colClasses=c(rep("character",6),rep("numeric",4),"character","numeric",
                                          rep("numeric",3),"character",rep("numeric",2),rep("character",2),
                                          rep("numeric",6)))
-almm_test_part1<-read.table("F:/SUE/天池/almm_test.txt",header=T,stringsAsFactors = T,
+almm_test_part1<-read.table("Falmm_test.txt",header=T,stringsAsFactors = T,
                             colClasses=c(rep("character",6),rep("numeric",4),"character","numeric",
                                          rep("numeric",3),"character",rep("numeric",2),rep("character",2),
                                          rep("numeric",6)))
